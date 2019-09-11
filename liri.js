@@ -13,6 +13,7 @@ const value = args.length > 0 ? args.join(" ") : void 0;
     const _commandSwitch = function(command, value) {
         switch (command) {
             case "concert-this":
+                // check to see they gave an artist name, since there's no default
                 if (value != void 0) {
                     _concert_this(value);
                 } else {
@@ -21,28 +22,35 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                 }
                 break;
             case "do-what-it-says":
+                // read a command from random.txt
                 _do_what_it_says();
                 break;
             case "movie-this":
+                // we don't need to check for a movie title because we have a default
                 _movie_this(value);
                 break;
             case "spotify-this-song":
+                // we don't need to check for a song title because we have a default
                 _spotify_this_song(value);
                 break;
             default:
+                // if the user didn't enter a command that matches something in the switch, tell them
                 _error("Please input a valid command.");
                 _outputEnd();
                 break;
         }
     }
     
+    // get upcoming concert information from Bands in Town
     const _concert_this = function(value) {
         const queryUrl = "https://rest.bandsintown.com/artists/" + encodeURIComponent(value.trim()) 
             + "/events?app_id=codingbootcamp";
         _axios.get(queryUrl)
         .then(function(response) {
+            // if there is no result found, we don't get an array
             if (Array.isArray(response.data)) {
                 response.data.forEach((concert) => {
+                    // spacer to make output more readable
                     _output("", "===========================================================");
                     _output("Venue name:", concert.venue.name);
                     _output("Location:", concert.venue.city + ", " + concert.venue.country);
@@ -53,38 +61,46 @@ const value = args.length > 0 ? args.join(" ") : void 0;
             } else {
                 _output("", "Artist not found.");
             }
+            // spacer/line to improve readability
             _outputEnd();
         });
     }
     
     const _do_what_it_says = function() {
+        // read a command from random.txt
         _fs.readFile("random.txt", "utf8", function(error, input) {
             if (error) return console.log(error);
             const [command, value] = input.split(",");
+            // feed it back into the command switch
             _commandSwitch(command, value);
         });
     }
 
+    // show error messages in red
     const _error = function(message) {
         console.log("\x1b[31m", "ERROR: " + message, "\x1b[0m");
         log.push("ERROR: " + message);
     }
 
+    // first function run
     const _init = function(command, value) {
         _output("", "***********************************************************", false);
         _output("", (command != void 0 ? command : "No command specified.") + " " + (value != void 0 ? value : ""), false);
         _commandSwitch(command, value);
     }
     
+    // get movie information from OMDB
     const _movie_this = function(value="Mr. Nobody") {
         const queryUrl = "http://www.omdbapi.com/?t=" + encodeURIComponent(value.trim()) + "&apikey=trilogy";
         _axios.get(queryUrl)
             .then(function(response) {
                 const movie = response.data;
+                // if the resulting object has a Title property, we found a movie
                 if (movie.Title !== void 0) {
                     _output("Title:", movie.Title);
                     _output("Year:", movie.Year);
                     _output("IMDB rating:", movie.imdbRating);
+                    // Rotten Tomatoes is located in an array named Ratings
                     const rottenTomatoes = movie.Ratings.find((rating) => {
                         if (rating.Source === "Rotten Tomatoes") return rating;
                     });
@@ -100,6 +116,7 @@ const value = args.length > 0 ? args.join(" ") : void 0;
             });
     }
 
+    // helper method to make the console log pretty (and to build the log array)
     const _output = function(title, message, showInTerminal=true) {
         if (showInTerminal) {
             if (title.length > 0) {
@@ -111,6 +128,8 @@ const value = args.length > 0 ? args.join(" ") : void 0;
         log.push(message);
     }
 
+    // helper method to finalize a section of logging. we build the log array in other methods
+    // and then finally save it to the log file here, because otherwise it might get out of order
     const _outputEnd = function() {
         _output("", "***********************************************************", false);
         _output("", "", false);
@@ -121,11 +140,13 @@ const value = args.length > 0 ? args.join(" ") : void 0;
         });
     }
     
+    // search spotify for a song
     const _spotify_this_song = function(value="Ace of Base - The Sign") {
         _spotify.search({ type: "track", query: value}, function(error, data) {
             if (error) return _output("Error occurred: " + error);
             const item = data.tracks.items[0];
             if (item !== void 0) {
+                // create an array of artist names then join them with commas
                 const artists = item.artists.map((artist) => artist.name).join(", ");
                 _output("Name:", item.name);
                 _output("Artists:", artists);
@@ -138,5 +159,6 @@ const value = args.length > 0 ? args.join(" ") : void 0;
         });
     }
 
+    // init now that we have set everything up
     _init(command, value);
 })(command, value);
