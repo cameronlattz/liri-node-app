@@ -7,7 +7,8 @@ const value = args.length > 0 ? args.join(" ") : void 0;
     const _fs = require("fs");
     const _axios = require("axios");
     const Spotify = require("node-spotify-api");
-    var _spotify = new Spotify(keys.spotify);
+    const _spotify = new Spotify(keys.spotify);
+    const log = [];
 
     const _commandSwitch = function(command, value) {
         switch (command) {
@@ -15,21 +16,21 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                 if (value != void 0) {
                     _concert_this(value);
                 } else {
-                    _output("", "Please enter an artist name.");
+                    _error("Please enter an artist name.");
                     _outputEnd();
                 }
-                break;
-            case "spotify-this-song":
-                _spotify_this_song(value);
-                break;
-            case "movie-this":
-                _movie_this(value);
                 break;
             case "do-what-it-says":
                 _do_what_it_says();
                 break;
+            case "movie-this":
+                _movie_this(value);
+                break;
+            case "spotify-this-song":
+                _spotify_this_song(value);
+                break;
             default:
-                _output("Please input a valid command.");
+                _error("Please input a valid command.");
                 _outputEnd();
                 break;
         }
@@ -66,11 +67,12 @@ const value = args.length > 0 ? args.join(" ") : void 0;
 
     const _error = function(message) {
         console.log("\x1b[31m", "ERROR: " + message, "\x1b[0m");
+        log.push("ERROR: " + message);
     }
 
     const _init = function(command, value) {
         _output("", "***********************************************************", false);
-        _output("", command + " " + (value != void 0 ? value : ""), false);
+        _output("", (command != void 0 ? command : "No command specified.") + " " + (value != void 0 ? value : ""), false);
         _commandSwitch(command, value);
     }
     
@@ -106,15 +108,17 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                 console.log(message);
             }
         }
-        // do this so they don't get out of order
-        _fs.appendFile("log.txt", message + "\n", function(error) {
-            if (error) return console.log(error);
-        });
+        log.push(message);
     }
 
     const _outputEnd = function() {
         _output("", "***********************************************************", false);
         _output("", "", false);
+        _output("", "", false);
+        const logString = log.join("\n");
+        _fs.appendFile("log.txt", logString, function(error) {
+            if (error) return console.log(error);
+        });
     }
     
     const _spotify_this_song = function(value="Ace of Base - The Sign") {
