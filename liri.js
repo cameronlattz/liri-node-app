@@ -15,31 +15,21 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                 if (value != void 0) {
                     _concert_this(value);
                 } else {
-                    _output("", "Please enter an artist name.", true, true);
+                    _output("", "Please enter an artist name.");
                     _outputEnd();
                 }
                 break;
             case "spotify-this-song":
-                // do this better
-                if (value != void 0) {
-                    _spotify_this_song(value);
-                } else {
-                    _spotify_this_song();
-                }
+                _spotify_this_song(value);
                 break;
             case "movie-this":
-                // do this better
-                if (value != void 0) {
-                    _movie_this(value);
-                } else {
-                    _movie_this();
-                }
+                _movie_this(value);
                 break;
             case "do-what-it-says":
                 _do_what_it_says();
                 break;
             default:
-                _output("", "Please input a valid command.", true, true);
+                _output("Please input a valid command.");
                 _outputEnd();
                 break;
         }
@@ -60,7 +50,7 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                     _output("", "");
                 });
             } else {
-                _output("", "Artist not found.", true, true);
+                _output("", "Artist not found.");
             }
             _outputEnd();
         });
@@ -72,6 +62,10 @@ const value = args.length > 0 ? args.join(" ") : void 0;
             const [command, value] = input.split(",");
             _commandSwitch(command, value);
         });
+    }
+
+    const _error = function(message) {
+        console.log("\x1b[31m", "ERROR: " + message, "\x1b[0m");
     }
 
     const _init = function(command, value) {
@@ -98,23 +92,18 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                     _output("Plot:", movie.Plot);
                     _output("Actors:", movie.Actors);
                 } else {
-                    _output("", "Movie not found.", true, true);
+                    _error("Movie not found.");
                 }
                 _outputEnd();
             });
     }
 
-    const _output = function(title, message, showInTerminal=true, isError=false) {
-        // do this better
+    const _output = function(title, message, showInTerminal=true) {
         if (showInTerminal) {
             if (title.length > 0) {
                 console.log("\x1b[32m", title, "\x1b[36m", " " + message, "\x1b[0m");
             } else {
-                if (isError) {
-                    console.log("\x1b[31m", "ERROR: " + message, "\x1b[0m");
-                } else {
-                    console.log(message);
-                }
+                console.log(message);
             }
         }
         // do this so they don't get out of order
@@ -139,7 +128,7 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                 _output("Album:", item.album.name);
                 _output("Spotify link:", item.external_urls.spotify);
             } else {
-                _output("", "Song not found.", true, true);
+                _error("Song not found.");
             }
             _outputEnd();
         });
