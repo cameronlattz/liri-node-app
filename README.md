@@ -11,26 +11,26 @@ LIRI is an app that will search different APIs for various types of media/events
 
 ### OVERVIEW:
 
-    The app is mainly built as a closure. Outside of the closure, it takes in the command line arguments and saves them to a variable. Inside, it imports all of the required node modules, declares all of the functions, and then finally runs the _init function (underscored variables mean that they are only available inside of the closure). The _init function calls the _commandSwitch function, which switches based on the command entered into the command line. The _commandSwitch function then branches off into different methods to make an API call. _commandSwitch and those branching methods will ultimately call _error, _output, and/or _outputEnd. These are helper functions designed to streamline the code. _outputEnd saves messages to log.txt.
+The app is mainly built as a closure. Outside of the closure, it takes in the command line arguments and saves them to a variable. Inside, it imports all of the required node modules, declares all of the functions, and then finally runs the _init function (underscored variables mean that they are only available inside of the closure). The _init function calls the _commandSwitch function, which switches based on the command entered into the command line. The _commandSwitch function then branches off into different methods to make an API call. _commandSwitch and those branching methods will ultimately call _error, _output, and/or _outputEnd. These are helper functions designed to streamline the code. _outputEnd saves messages to log.txt.
 
 ### HOW TO RUN:
 
-    Run liri.js in node with the following structure:
-    ```
-        node .\liri.js <command> [value]
-    ```
-    Command can be one of the following values:
-    ```
-        spotify-this-song
-        concert-this
-        movie-this
-        do-what-it-says
-    ```
-    Value is an optional parameter, but it must be specified when running concert-this.
-    "spotify-this-song" will search Spotify for a song's name, artist, and album, and provide a link to the song on Spotify.
-    "concert-this" will return a list of all upcoming concerts an artist is holding. It will return each venue's name, location, and date.
-    "movie-this" will search for a movie on OMDB. It will show the movie's title, release year, IMDB rating, RottenTomatoes rating, release country, original language, plot, and a list of main actors.
-    "do-what-it-says" will read the "random.txt" file and run whatever command and value is specified there.
+Run liri.js in node with the following structure:
+```
+    node .\liri.js <command> [value]
+```
+Command can be one of the following values:
+```
+    spotify-this-song
+    concert-this
+    movie-this
+    do-what-it-says
+```
+Value is an optional parameter, but it must be specified when running concert-this.
+"spotify-this-song" will search Spotify for a song's name, artist, and album, and provide a link to the song on Spotify.
+"concert-this" will return a list of all upcoming concerts an artist is holding. It will return each venue's name, location, and date.
+"movie-this" will search for a movie on OMDB. It will show the movie's title, release year, IMDB rating, RottenTomatoes rating, release country, original language, plot, and a list of main actors.
+"do-what-it-says" will read the "random.txt" file and run whatever command and value is specified there.
 
 ### TECHNOLOGIES USED:
 * Node
@@ -40,4 +40,6 @@ LIRI is an app that will search different APIs for various types of media/events
 
 
 ### TEAM:
-    Cameron Lattz, Developer
+```
+Cameron Lattz, Developer
+```
