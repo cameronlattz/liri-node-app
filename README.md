@@ -33,10 +33,10 @@ LIRI is an app that will search different APIs for various types of media/events
     "do-what-it-says" will read the "random.txt" file and run whatever command and value is specified there.
 
 ### TECHNOLOGIES USED:
->    Node
->    FileSystem module
->    Axios module
->    Spotify module
+* Node
+* FileSystem module
+* Axios module
+* Spotify module
 
 
 ### TEAM:
