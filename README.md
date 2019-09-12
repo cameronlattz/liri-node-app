@@ -28,20 +28,19 @@ Command can be one of the following values:
 ```
 Value is an optional parameter, but it must be specified when running concert-this.
 
-* "spotify-this-song" will search Spotify for a song's name, artist, and album, and provide a link to the song on Spotify.
+* "spotify-this-song" will search Spotify for a song's name, artist, and album, and provide a link to the song on Spotify. If no value is specified, it will default to "Ace of Base - The Sign".
 * "concert-this" will return a list of all upcoming concerts an artist is holding. It will return each venue's name, location, and date.
-* "movie-this" will search for a movie on OMDB. It will show the movie's title, release year, IMDB rating, RottenTomatoes rating, release country, original language, plot, and a list of main actors.
+* "movie-this" will search for a movie on OMDB. It will show the movie's title, release year, IMDB rating, RottenTomatoes rating, release country, original language, plot, and a list of main actors. If no value is specified, it will default to "Mr. Nobody".
 * "do-what-it-says" will read the "random.txt" file and run whatever command and value is specified there.
 
 ### VIDEO:
-[![Video](https://img.youtube.com/vi/H1KWtG66lEQ/0.jpg)](https://www.youtube.com/watch?v=H1KWtG66lEQ)
+[![Video](https://img.youtube.com/vi/c_0bdsqtEvk/0.jpg)](https://www.youtube.com/watch?v=c_0bdsqtEvk)
 
 ### TECHNOLOGIES USED:
 * Node
 * FileSystem module
 * Axios module
 * Spotify module
-
 
 ### TEAM:
 * Cameron Lattz, Developer

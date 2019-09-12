@@ -59,7 +59,7 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                     _output("", "");
                 });
             } else {
-                _output("", "Artist not found.");
+                _error("Artist not found.");
             }
             // spacer/line to improve readability
             _outputEnd();
@@ -125,7 +125,10 @@ const value = args.length > 0 ? args.join(" ") : void 0;
                 console.log(message);
             }
         }
-        log.push(message);
+        if (title.length > 0) {
+            title += " ";
+        }
+        log.push(title + message);
     }
 
     // helper method to finalize a section of logging. we build the log array in other methods
