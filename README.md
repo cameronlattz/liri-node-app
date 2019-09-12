@@ -28,13 +28,10 @@ Command can be one of the following values:
 ```
 Value is an optional parameter, but it must be specified when running concert-this.
 
-"spotify-this-song" will search Spotify for a song's name, artist, and album, and provide a link to the song on Spotify.
-
-"concert-this" will return a list of all upcoming concerts an artist is holding. It will return each venue's name, location, and date.
-
-"movie-this" will search for a movie on OMDB. It will show the movie's title, release year, IMDB rating, RottenTomatoes rating, release country, original language, plot, and a list of main actors.
-
-"do-what-it-says" will read the "random.txt" file and run whatever command and value is specified there.
+* "spotify-this-song" will search Spotify for a song's name, artist, and album, and provide a link to the song on Spotify.
+* "concert-this" will return a list of all upcoming concerts an artist is holding. It will return each venue's name, location, and date.0
+* "movie-this" will search for a movie on OMDB. It will show the movie's title, release year, IMDB rating, RottenTomatoes rating, release country, original language, plot, and a list of main actors.
+* "do-what-it-says" will read the "random.txt" file and run whatever command and value is specified there.
 
 ### SCREENSHOTS:
 ![One](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "1")
